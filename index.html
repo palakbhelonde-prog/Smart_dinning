@@ -1,0 +1,3088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SmartDine | A Taste of Something Special</title>
+
+<meta name="description" content="Discover exquisite Italian, French and Thai cuisine at SmartDine. Explore our menu, create your order and enjoy a beautiful dining experience.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --wine: #6b2639;
+    --wine-dark: #421722;
+    --wine-light: #8c4053;
+    --sage: #75866a;
+    --sage-light: #e7ecdf;
+    --cream: #faf7f0;
+    --white: #ffffff;
+    --gold: #c8a66b;
+    --text: #32282a;
+    --muted: #786d6d;
+    --border: #e9e0d7;
+    --shadow: 0 14px 38px rgba(67, 35, 40, .08);
+    --radius: 22px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 100px;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    background: var(--cream);
+    color: var(--text);
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+.container {
+    width: min(1240px, 91%);
+    margin: 0 auto;
+}
+
+.serif {
+    font-family: 'Playfair Display', Georgia, serif;
+}
+
+.eyebrow {
+    color: var(--wine-light);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+}
+
+.section-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(34px, 4vw, 50px);
+    line-height: 1.2;
+    letter-spacing: -.7px;
+    color: var(--wine-dark);
+}
+
+.section-description {
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 640px;
+    margin-top: 13px;
+}
+
+.primary-btn,
+.secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border-radius: 10px;
+    padding: 15px 24px;
+    border: 1px solid transparent;
+    font-size: 14px;
+    font-weight: 700;
+    transition: .25s ease;
+}
+
+.primary-btn {
+    background: var(--wine);
+    color: white;
+}
+
+.primary-btn:hover {
+    background: var(--wine-dark);
+    transform: translateY(-2px);
+}
+
+.secondary-btn {
+    background: transparent;
+    color: var(--wine-dark);
+    border-color: rgba(107, 38, 57, .35);
+}
+
+.secondary-btn:hover {
+    background: white;
+}
+
+/* NAVIGATION */
+
+.top-strip {
+    background: var(--wine-dark);
+    color: #f5e6d0;
+    padding: 8px 0;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+.navbar {
+    background: rgba(250, 247, 240, .96);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(14px);
+}
+
+.nav-inner {
+    min-height: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    flex-shrink: 0;
+}
+
+.brand-mark {
+    display: grid;
+    place-items: center;
+    height: 47px;
+    width: 47px;
+    background: var(--wine);
+    color: #fff4df;
+    border-radius: 50% 50% 50% 12px;
+    font-size: 23px;
+}
+
+.brand-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--wine-dark);
+    line-height: 1.15;
+}
+
+.brand-subtitle {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.nav-links a {
+    font-size: 14px;
+    font-weight: 600;
+    color: #574b4b;
+    transition: .2s;
+}
+
+.nav-links a:hover {
+    color: var(--wine);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cart-nav {
+    background: var(--wine);
+    color: white;
+    border: 0;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.cart-nav:hover {
+    background: var(--wine-dark);
+}
+
+.mobile-menu-btn {
+    display: none;
+    border: 0;
+    background: transparent;
+    color: var(--wine-dark);
+    font-size: 25px;
+}
+
+/* HERO */
+
+.hero {
+    padding: 34px 0 55px;
+}
+
+.hero-frame {
+    min-height: 550px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 30px;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(43, 20, 27, .95) 0%,
+            rgba(57, 27, 35, .83) 44%,
+            rgba(57, 27, 35, .13) 100%
+        ),
+        url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1900&q=85")
+        center / cover no-repeat;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 730px;
+    padding: 65px 7%;
+    color: white;
+}
+
+.hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #e7c88e;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+}
+
+.hero-kicker::before {
+    content: "";
+    width: 30px;
+    height: 2px;
+    background: var(--gold);
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(48px, 6vw, 78px);
+    line-height: 1.09;
+    letter-spacing: -1.5px;
+    font-weight: 500;
+    margin-bottom: 22px;
+}
+
+.hero h1 span {
+    display: block;
+    color: #e5c28a;
+    font-style: italic;
+}
+
+.hero-description {
+    max-width: 490px;
+    font-size: 17px;
+    line-height: 1.9;
+    color: #f1e8e4;
+    margin-bottom: 30px;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 13px;
+}
+
+.hero .primary-btn {
+    background: #e5c28a;
+    color: var(--wine-dark);
+}
+
+.hero .primary-btn:hover {
+    background: #f3d9aa;
+}
+
+.hero .secondary-btn {
+    color: white;
+    border-color: rgba(255, 255, 255, .55);
+}
+
+.hero .secondary-btn:hover {
+    color: var(--wine-dark);
+    background: white;
+}
+
+.hero-note {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    margin-top: 35px;
+    font-size: 13px;
+    color: #f0e5df;
+}
+
+.hero-note span::first-letter {
+    color: #e5c28a;
+}
+
+/* FEATURE STRIP */
+
+.feature-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: -1px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.feature {
+    padding: 25px 27px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.feature + .feature {
+    border-left: 1px solid var(--border);
+}
+
+.feature-icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    background: #f4e8e2;
+    color: var(--wine);
+    border-radius: 15px;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.feature h3 {
+    font-size: 15px;
+    margin-bottom: 3px;
+}
+
+.feature p {
+    font-size: 12px;
+    color: var(--muted);
+}
+
+/* MENU */
+
+.menu-section {
+    padding: 105px 0 80px;
+}
+
+.section-heading-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 30px;
+    margin-bottom: 32px;
+}
+
+.menu-search {
+    position: relative;
+    width: min(100%, 330px);
+}
+
+.menu-search span {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+}
+
+.menu-search input {
+    width: 100%;
+    border: 1px solid var(--border);
+    background: white;
+    border-radius: 12px;
+    padding: 15px 15px 15px 46px;
+    font-size: 14px;
+    color: var(--text);
+}
+
+.menu-search input:focus {
+    border-color: var(--wine);
+    outline: none;
+}
+
+.category-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 34px;
+}
+
+.category-btn {
+    padding: 11px 20px;
+    background: white;
+    border: 1px solid var(--border);
+    color: #65595a;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: .2s;
+}
+
+.category-btn:hover {
+    border-color: var(--wine);
+    color: var(--wine);
+}
+
+.category-btn.active {
+    background: var(--wine);
+    color: white;
+    border-color: var(--wine);
+}
+
+.menu-subheading {
+    margin-bottom: 25px;
+}
+
+.menu-subheading h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 30px;
+    color: var(--wine-dark);
+}
+
+.menu-subheading p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.food-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 26px;
+}
+
+.food-card {
+    min-width: 0;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform .3s, box-shadow .3s;
+}
+
+.food-card:hover {
+    transform: translateY(-7px);
+    box-shadow: var(--shadow);
+}
+
+.food-image {
+    height: 235px;
+    overflow: hidden;
+    position: relative;
+    background: #eee4da;
+}
+
+.food-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s;
+}
+
+.food-card:hover .food-image img {
+    transform: scale(1.06);
+}
+
+.food-tag {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #fffaf1;
+    color: var(--wine);
+    padding: 7px 12px;
+    border-radius: 7px;
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.food-info {
+    padding: 22px;
+}
+
+.food-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.food-name {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 21px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--wine-dark);
+}
+
+.food-rating {
+    white-space: nowrap;
+    color: #ad7b24;
+    font-size: 12px;
+    font-weight: 700;
+    padding-top: 5px;
+}
+
+.food-origin {
+    display: inline-block;
+    color: var(--sage);
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    margin-top: 9px;
+}
+
+.food-description {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+    margin-top: 9px;
+    min-height: 50px;
+}
+
+.food-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    border-top: 1px solid #f0e9e3;
+    margin-top: 20px;
+    padding-top: 17px;
+}
+
+.food-price {
+    font-size: 23px;
+    font-weight: 800;
+    color: var(--wine-dark);
+}
+
+.food-price small {
+    display: block;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.add-btn {
+    background: var(--wine);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 15px;
+    font-size: 12px;
+    font-weight: 700;
+    transition: .2s;
+}
+
+.add-btn:hover {
+    background: var(--wine-dark);
+}
+
+.add-btn:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 55px 20px;
+    background: white;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+}
+
+.no-results h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 26px;
+    margin-bottom: 8px;
+}
+
+.no-results p {
+    color: var(--muted);
+}
+
+/* CHEF'S SPECIAL */
+
+.special-section {
+    padding: 20px 0 100px;
+}
+
+.special-box {
+    background: var(--sage-light);
+    border-radius: 28px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+
+.special-image {
+    min-height: 390px;
+    background:
+        url("https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=1200&q=85")
+        center / cover no-repeat;
+}
+
+.special-content {
+    padding: 48px;
+}
+
+.special-content h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(32px, 4vw, 45px);
+    line-height: 1.25;
+    color: var(--wine-dark);
+}
+
+.special-content p {
+    color: var(--muted);
+    font-size: 15px;
+    margin: 18px 0 25px;
+    line-height: 1.9;
+}
+
+.special-note {
+    display: inline-block;
+    background: white;
+    border: 1px solid #dce4d4;
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: var(--sage);
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* CART */
+
+.cart-section {
+    padding: 25px 0 95px;
+}
+
+.cart-layout {
+    display: grid;
+    grid-template-columns: 1.4fr .85fr;
+    gap: 25px;
+    align-items: start;
+}
+
+.cart-panel,
+.summary-panel {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 30px;
+}
+
+.panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.panel-heading h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    color: var(--wine-dark);
+    font-size: 25px;
+}
+
+.item-count {
+    background: var(--sage-light);
+    color: var(--sage);
+    padding: 6px 11px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.cart-empty {
+    padding: 35px 15px;
+    text-align: center;
+    background: #fbf8f3;
+    border-radius: 15px;
+}
+
+.empty-icon {
+    font-size: 49px;
+    margin-bottom: 12px;
+}
+
+.cart-empty h4 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 23px;
+    color: var(--wine-dark);
+}
+
+.cart-empty p {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 8px 0 20px;
+}
+
+.cart-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 14px;
+    padding: 17px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.cart-item-name {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--wine-dark);
+}
+
+.cart-item-name small {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.qty-btn {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--border);
+    background: white;
+    border-radius: 8px;
+    color: var(--wine);
+    font-weight: 800;
+}
+
+.qty-btn:hover {
+    background: var(--sage-light);
+}
+
+.cart-line-total {
+    text-align: right;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.remove-btn {
+    background: none;
+    border: 0;
+    color: #ad5252;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+.summary-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 13px 0;
+    font-size: 14px;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+}
+
+.summary-row strong {
+    color: var(--text);
+}
+
+.discount-control {
+    display: flex;
+    gap: 8px;
+    margin: 20px 0 8px;
+}
+
+.discount-control input {
+    min-width: 0;
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 14px;
+}
+
+.discount-control button {
+    background: var(--sage-light);
+    color: #455b3b;
+    border: 0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-weight: 800;
+    font-size: 13px;
+}
+
+.discount-message {
+    font-size: 12px;
+    margin-bottom: 12px;
+    min-height: 18px;
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 20px 0;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--wine-dark);
+}
+
+.full-btn {
+    width: 100%;
+}
+
+.summary-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 14px;
+    line-height: 1.8;
+}
+
+/* CHECKOUT */
+
+.checkout-section {
+    padding: 20px 0 100px;
+}
+
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.checkout-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 30px;
+}
+
+.checkout-card h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 25px;
+    color: var(--wine-dark);
+    margin-bottom: 24px;
+}
+
+.form-group {
+    margin-bottom: 19px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #fffdfa;
+    color: var(--text);
+    font-size: 14px;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 85px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--wine);
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.payment-option:has(input:checked) {
+    border-color: var(--wine);
+    background: #fbf3f1;
+}
+
+.payment-option input {
+    accent-color: var(--wine);
+    width: 17px;
+    height: 17px;
+}
+
+.payment-icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    background: var(--sage-light);
+    border-radius: 11px;
+    font-size: 20px;
+}
+
+.payment-details strong {
+    display: block;
+    font-size: 14px;
+}
+
+.payment-details small {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.checkout-message {
+    margin-top: 16px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--wine);
+}
+
+/* ABOUT */
+
+.about-section {
+    background: var(--wine-dark);
+    color: white;
+    border-radius: 28px;
+    padding: 55px;
+    margin-bottom: 95px;
+}
+
+.about-layout {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    align-items: center;
+    gap: 45px;
+}
+
+.about-section .eyebrow {
+    color: #e4c18a;
+}
+
+.about-section .section-title {
+    color: white;
+}
+
+.about-section .section-description {
+    color: #e1d3d2;
+    line-height: 1.9;
+}
+
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.stat {
+    padding: 17px 12px;
+    background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 13px;
+}
+
+.stat strong {
+    display: block;
+    color: #e4c18a;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 25px;
+}
+
+.stat span {
+    font-size: 11px;
+    color: #e1d3d2;
+}
+
+.about-image {
+    height: 370px;
+    border-radius: 22px;
+    background:
+        linear-gradient(rgba(46, 21, 28, .06), rgba(46, 21, 28, .06)),
+        url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1000&q=85")
+        center / cover no-repeat;
+}
+
+/* FOOTER */
+
+.footer {
+    background: #2c171d;
+    color: #eee0d8;
+    padding: 45px 0 25px;
+}
+
+.footer-main {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 35px;
+    padding-bottom: 30px;
+}
+
+.footer .brand-name {
+    color: white;
+}
+
+.footer .brand-subtitle {
+    color: #c8b4b0;
+}
+
+.footer-description {
+    max-width: 350px;
+    font-size: 13px;
+    color: #c8b4b0;
+    margin-top: 15px;
+    line-height: 1.9;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 23px;
+}
+
+.footer-links a {
+    font-size: 13px;
+    color: #e5d8d3;
+}
+
+.footer-links a:hover {
+    color: #e4c18a;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,.12);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    color: #bda9a5;
+    font-size: 12px;
+}
+
+/* TOAST */
+
+.toast {
+    position: fixed;
+    z-index: 500;
+    right: 25px;
+    bottom: 25px;
+    max-width: min(390px, calc(100% - 40px));
+    padding: 16px 22px;
+    background: var(--wine-dark);
+    color: white;
+    border: 1px solid #8d5360;
+    border-radius: 13px;
+    box-shadow: var(--shadow);
+    font-size: 14px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(15px);
+    transition: .25s;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ORDER SUCCESS */
+
+.success-box {
+    text-align: center;
+    background: var(--sage-light);
+    border: 1px solid #d9e2cf;
+    border-radius: 16px;
+    padding: 25px;
+    margin-top: 20px;
+}
+
+.success-box .success-icon {
+    font-size: 40px;
+}
+
+.success-box h4 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 24px;
+    margin: 8px 0;
+    color: var(--wine-dark);
+}
+
+.success-box p {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1050px) {
+    .nav-links {
+        gap: 15px;
+    }
+
+    .nav-links a {
+        font-size: 13px;
+    }
+
+    .food-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .food-image {
+        height: 245px;
+    }
+
+    .hero-frame {
+        min-height: 500px;
+    }
+
+    .cart-layout {
+        grid-template-columns: 1.15fr .85fr;
+    }
+}
+
+@media (max-width: 760px) {
+    .nav-inner {
+        min-height: 74px;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 12px 0;
+    }
+
+    .brand-name {
+        font-size: 23px;
+    }
+
+    .brand-mark {
+        width: 41px;
+        height: 41px;
+    }
+
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .nav-actions {
+        margin-left: auto;
+    }
+
+    .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        order: 5;
+        padding: 8px 0;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 11px 5px;
+        border-top: 1px solid var(--border);
+        font-size: 14px;
+    }
+
+    .cart-nav {
+        padding: 11px 13px;
+    }
+
+    .hero {
+        padding-top: 20px;
+    }
+
+    .hero-frame {
+        min-height: 500px;
+        border-radius: 22px;
+        background-position: 58% center;
+    }
+
+    .hero-content {
+        padding: 42px 7%;
+    }
+
+    .hero h1 {
+        font-size: clamp(43px, 8vw, 63px);
+    }
+
+    .hero-description {
+        font-size: 15px;
+    }
+
+    .feature-strip {
+        grid-template-columns: 1fr;
+    }
+
+    .feature {
+        padding: 18px 22px;
+    }
+
+    .feature + .feature {
+        border-left: 0;
+        border-top: 1px solid var(--border);
+    }
+
+    .menu-section {
+        padding-top: 75px;
+    }
+
+    .section-heading-row {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .menu-search {
+        width: 100%;
+    }
+
+    .category-bar {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+
+    .category-btn {
+        white-space: nowrap;
+    }
+
+    .food-grid {
+        gap: 17px;
+    }
+
+    .food-image {
+        height: 195px;
+    }
+
+    .food-info {
+        padding: 17px;
+    }
+
+    .food-name {
+        font-size: 19px;
+    }
+
+    .food-description {
+        font-size: 13px;
+    }
+
+    .food-price {
+        font-size: 21px;
+    }
+
+    .add-btn {
+        padding: 11px;
+        font-size: 11px;
+    }
+
+    .special-box {
+        grid-template-columns: 1fr;
+    }
+
+    .special-image {
+        min-height: 280px;
+    }
+
+    .special-content {
+        padding: 30px;
+    }
+
+    .cart-layout,
+    .checkout-grid,
+    .about-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .cart-panel,
+    .summary-panel,
+    .checkout-card {
+        padding: 23px;
+    }
+
+    .about-section {
+        padding: 32px 24px;
+    }
+
+    .about-image {
+        height: 280px;
+    }
+
+    .footer-main {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 15px;
+    }
+
+    .container {
+        width: 92%;
+    }
+
+    .top-strip {
+        font-size: 10px;
+        letter-spacing: .7px;
+    }
+
+    .hero-frame {
+        min-height: 470px;
+    }
+
+    .hero h1 {
+        font-size: 43px;
+    }
+
+    .hero-kicker {
+        font-size: 10px;
+        letter-spacing: 2px;
+    }
+
+    .hero-note {
+        gap: 10px;
+        font-size: 11px;
+    }
+
+    .section-title {
+        font-size: 35px;
+    }
+
+    .food-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .food-image {
+        height: 245px;
+    }
+
+    .food-info {
+        padding: 21px;
+    }
+
+    .food-name {
+        font-size: 21px;
+    }
+
+    .food-description {
+        font-size: 14px;
+    }
+
+    .add-btn {
+        font-size: 12px;
+        padding: 12px 15px;
+    }
+
+    .cart-row {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .cart-line-total {
+        grid-column: 2;
+    }
+
+    .quantity-control {
+        justify-self: end;
+    }
+
+    .about-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-strip">
+    A LITTLE TASTE OF EUROPE & ASIA · FRESHLY PREPARED, ALWAYS
+</div>
+
+<header class="navbar">
+    <div class="container nav-inner">
+
+        <a href="#home" class="brand" aria-label="SmartDine home">
+            <div class="brand-mark">✦</div>
+            <div>
+                <div class="brand-name">SmartDine</div>
+                <div class="brand-subtitle">Food with feeling</div>
+            </div>
+        </a>
+
+        <nav class="nav-links" id="navLinks">
+            <a href="#home">Home</a>
+            <a href="#menu">Our Menu</a>
+            <a href="#special">Chef's Special</a>
+            <a href="#cart">Your Order</a>
+            <a href="#about">Our Story</a>
+        </nav>
+
+        <div class="nav-actions">
+            <button class="cart-nav" onclick="scrollToSection('cart')">
+                🛍 My Bag <span id="navCartCount">0</span>
+            </button>
+
+            <button class="mobile-menu-btn"
+                    id="mobileMenuBtn"
+                    aria-label="Toggle navigation"
+                    aria-expanded="false"
+                    onclick="toggleMobileMenu()">☰</button>
+        </div>
+
+    </div>
+</header>
+
+<main>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+    <div class="container">
+
+        <div class="hero-frame">
+
+            <div class="hero-content">
+
+                <div class="hero-kicker">
+                    Crafted for curious appetites
+                </div>
+
+                <h1>
+                    Every plate
+                    <span>tells a story.</span>
+                </h1>
+
+                <p class="hero-description">
+                    From the romance of Italian kitchens to the elegance
+                    of French dining and the vibrant flavours of Thailand,
+                    discover a world of extraordinary food.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#menu" class="primary-btn">
+                        Explore the menu <span>↗</span>
+                    </a>
+
+                    <a href="#about" class="secondary-btn">
+                        Our philosophy
+                    </a>
+                </div>
+
+                <div class="hero-note">
+                    <span>✦ Thoughtfully prepared</span>
+                    <span>✦ Inspired by the world</span>
+                    <span>✦ Made to be enjoyed</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="feature-strip">
+
+            <div class="feature">
+                <div class="feature-icon">🍝</div>
+                <div>
+                    <h3>Italian Comfort</h3>
+                    <p>Handcrafted favourites and rich flavours</p>
+                </div>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">🥐</div>
+                <div>
+                    <h3>French Elegance</h3>
+                    <p>Classic recipes with a delicate touch</p>
+                </div>
+            </div>
+
+            <div class="feature">
+                <div class="feature-icon">🍜</div>
+                <div>
+                    <h3>Thai Discoveries</h3>
+                    <p>Fresh herbs, aromatic spices and balance</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- MENU -->
+
+<section class="menu-section" id="menu">
+    <div class="container">
+
+        <div class="section-heading-row">
+            <div>
+                <div class="eyebrow">A world on your plate</div>
+                <h2 class="section-title">The dining collection.</h2>
+                <p class="section-description">
+                    Beautiful ingredients, beloved classics and flavours
+                    worth slowing down for. Find your next favourite.
+                </p>
+            </div>
+
+            <div class="menu-search">
+                <span>⌕</span>
+                <input
+                    type="search"
+                    id="menuSearch"
+                    placeholder="Search dishes, cuisines..."
+                    aria-label="Search menu">
+            </div>
+        </div>
+
+        <div class="category-bar" id="categoryBar">
+            <button class="category-btn active" data-category="all">✦ Everything</button>
+            <button class="category-btn" data-category="italian">🍝 Italian</button>
+            <button class="category-btn" data-category="french">🥐 French</button>
+            <button class="category-btn" data-category="thai">🍜 Thai</button>
+            <button class="category-btn" data-category="dessert">🍰 Desserts</button>
+            <button class="category-btn" data-category="drink">🥂 Drinks</button>
+        </div>
+
+        <div class="menu-subheading">
+            <h3 id="menuHeading">Something wonderful awaits</h3>
+            <p id="menuCount">Discover our chef-inspired collection.</p>
+        </div>
+
+        <div class="food-grid" id="foodGrid" aria-live="polite"></div>
+
+    </div>
+</section>
+
+<!-- CHEF SPECIAL -->
+
+<section class="special-section" id="special">
+    <div class="container">
+
+        <div class="special-box">
+
+            <div class="special-image"
+                 role="img"
+                 aria-label="Freshly prepared pasta"></div>
+
+            <div class="special-content">
+                <div class="eyebrow">A little something special</div>
+
+                <h2>Good food deserves to be savoured.</h2>
+
+                <p>
+                    We believe the best meals are more than a collection
+                    of ingredients. They're about thoughtful preparation,
+                    wonderful aromas and the joy of discovering something
+                    new with every bite.
+                </p>
+
+                <div class="special-note">
+                    ✦ Inspired by kitchens around the world
+                </div>
+
+                <br>
+
+                <a href="#menu" class="primary-btn">
+                    Find your favourite ↗
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- CART -->
+
+<section class="cart-section" id="cart">
+    <div class="container">
+
+        <div class="eyebrow">Your delicious decisions</div>
+        <h2 class="section-title">Your order.</h2>
+
+        <p class="section-description" style="margin-bottom:30px;">
+            Everything you've chosen, gathered in one place.
+        </p>
+
+        <div class="cart-layout">
+
+            <div class="cart-panel">
+
+                <div class="panel-heading">
+                    <h3>Your selection</h3>
+                    <span class="item-count" id="cartItemCount">0 items</span>
+                </div>
+
+                <div id="cartItems"></div>
+
+                <div class="cart-empty" id="cartEmpty">
+                    <div class="empty-icon">🛍️</div>
+                    <h4>A little room for something delicious.</h4>
+                    <p>Your bag is empty. Explore the menu and add something wonderful.</p>
+                    <a href="#menu" class="primary-btn">Explore the menu ↗</a>
+                </div>
+
+            </div>
+
+            <aside class="summary-panel">
+
+                <div class="panel-heading">
+                    <h3>Bill summary</h3>
+                    <span>₹ INR</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Items subtotal</span>
+                    <strong id="subtotal">₹0.00</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Discount</span>
+                    <strong id="discountAmount">− ₹0.00</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>GST (5% demo rate)</span>
+                    <strong id="gstAmount">₹0.00</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Delivery</span>
+                    <strong id="deliveryAmount">₹0.00</strong>
+                </div>
+
+                <div class="discount-control">
+                    <input
+                        type="text"
+                        id="couponInput"
+                        placeholder="Try code WELCOME10"
+                        aria-label="Discount coupon">
+
+                    <button type="button" onclick="applyCoupon()">
+                        Apply
+                    </button>
+                </div>
+
+                <div class="discount-message" id="discountMessage"></div>
+
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span id="grandTotal">₹0.00</span>
+                </div>
+
+                <button
+                    type="button"
+                    class="primary-btn full-btn"
+                    onclick="goToCheckout()">
+                    Continue to checkout →
+                </button>
+
+                <p class="summary-note">
+                    Taxes and delivery are demo calculations. The final
+                    amount is shown before you place your demo order.
+                </p>
+
+            </aside>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- CHECKOUT -->
+
+<section class="checkout-section" id="checkout">
+    <div class="container">
+
+        <div class="eyebrow">Almost time to enjoy</div>
+        <h2 class="section-title">A few final details.</h2>
+
+        <p class="section-description">
+            Complete your details and choose your preferred payment method.
+        </p>
+
+        <form id="checkoutForm" novalidate>
+
+            <div class="checkout-grid">
+
+                <div class="checkout-card">
+
+                    <h3>Your details</h3>
+
+                    <div class="form-group">
+                        <label for="customerName">Full name *</label>
+                        <input
+                            type="text"
+                            id="customerName"
+                            name="customerName"
+                            placeholder="Enter your name"
+                            autocomplete="name"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerEmail">Email address *</label>
+                        <input
+                            type="email"
+                            id="customerEmail"
+                            name="customerEmail"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerPhone">Phone number *</label>
+                        <input
+                            type="tel"
+                            id="customerPhone"
+                            name="customerPhone"
+                            placeholder="Enter your phone number"
+                            autocomplete="tel"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="customerAddress">Delivery address *</label>
+                        <textarea
+                            id="customerAddress"
+                            name="customerAddress"
+                            placeholder="Enter your complete address"
+                            autocomplete="street-address"
+                            required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="orderNotes">Special instructions (optional)</label>
+                        <textarea
+                            id="orderNotes"
+                            name="orderNotes"
+                            placeholder="Allergies, preferences or delivery instructions"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="checkout-card">
+
+                    <h3>Choose your payment</h3>
+
+                    <label class="payment-option">
+                        <input
+                            type="radio"
+                            name="paymentMethod"
+                            value="UPI"
+                            checked>
+
+                        <span class="payment-icon">📱</span>
+
+                        <span class="payment-details">
+                            <strong>UPI</strong>
+                            <small>Demo payment selection</small>
+                        </span>
+                    </label>
+
+                    <label class="payment-option">
+                        <input
+                            type="radio"
+                            name="paymentMethod"
+                            value="Credit / Debit Card">
+
+                        <span class="payment-icon">💳</span>
+
+                        <span class="payment-details">
+                            <strong>Credit / Debit Card</strong>
+                            <small>Demo payment selection</small>
+                        </span>
+                    </label>
+
+                    <label class="payment-option">
+                        <input
+                            type="radio"
+                            name="paymentMethod"
+                            value="Cash on Delivery">
+
+                        <span class="payment-icon">💵</span>
+
+                        <span class="payment-details">
+                            <strong>Cash on Delivery</strong>
+                            <small>Demo payment selection</small>
+                        </span>
+                    </label>
+
+                    <div style="height:18px;"></div>
+
+                    <div class="summary-row">
+                        <span>Items</span>
+                        <strong id="checkoutItems">0</strong>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Amount payable</span>
+                        <strong id="checkoutTotal">₹0.00</strong>
+                    </div>
+
+                    <p class="summary-note" style="margin-bottom:20px;">
+                        This standalone website demonstrates the checkout
+                        experience. It does not process real payments or
+                        transmit orders to a restaurant server.
+                    </p>
+
+                    <button type="submit" class="primary-btn full-btn">
+                        Place demo order →
+                    </button>
+
+                    <div id="checkoutResult" aria-live="polite"></div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+</section>
+
+<!-- ABOUT -->
+
+<section class="container" id="about">
+
+    <div class="about-section">
+
+        <div class="about-layout">
+
+            <div>
+                <div class="eyebrow">A world of flavour, one table</div>
+
+                <h2 class="section-title">
+                    Thoughtful food.<br>
+                    Memorable moments.
+                </h2>
+
+                <p class="section-description">
+                    SmartDine brings together the character of European
+                    cooking and the lively spirit of Thai cuisine.
+                    Our concept is simple: an inviting menu, a beautiful
+                    ordering experience and a little discovery in every meal.
+                </p>
+
+                <div class="about-stats">
+                    <div class="stat">
+                        <strong>03</strong>
+                        <span>Food cultures</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>30+</strong>
+                        <span>Menu creations</span>
+                    </div>
+
+                    <div class="stat">
+                        <strong>01</strong>
+                        <span>Lovely experience</span>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="about-image"
+                role="img"
+                aria-label="An elegant restaurant dining table">
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+    <div class="container">
+
+        <div class="footer-main">
+
+            <div>
+                <a href="#home" class="brand">
+                    <div class="brand-mark">✦</div>
+                    <div>
+                        <div class="brand-name">SmartDine</div>
+                        <div class="brand-subtitle">Food with feeling</div>
+                    </div>
+                </a>
+
+                <p class="footer-description">
+                    A little Italian romance, French elegance and Thai
+                    vibrancy. Discover your next favourite plate with SmartDine.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#menu">Explore Menu</a>
+                <a href="#cart">Your Order</a>
+                <a href="#checkout">Checkout</a>
+                <a href="#about">About Us</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <span>© <span id="currentYear"></span> SmartDine. All rights reserved.</span>
+            <span>Made with care for people who love good food.</span>
+        </div>
+
+    </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/*
+==========================================================
+ SMARTDINE MENU CONFIGURATION
+
+ To add a dish, add one object to MENU_ITEMS.
+ Use a unique ID for each dish.
+
+ Categories:
+ italian, french, thai, dessert, drink
+
+ Prices are demo prices in INR.
+==========================================================
+*/
+
+let MENU_ITEMS = [
+
+    // ITALIAN CUISINE
+
+    {
+        id: 1,
+        name: "Truffle Alfredo Pasta",
+        category: "italian",
+        price: 329,
+        rating: 4.9,
+        origin: "Italian",
+        tag: "Chef's Favourite",
+        description: "Silky parmesan cream, delicate truffle notes and freshly cracked pepper.",
+        image: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 2,
+        name: "Margherita Pizza",
+        category: "italian",
+        price: 249,
+        rating: 4.8,
+        origin: "Italian",
+        tag: "Classic",
+        description: "Tomato, creamy mozzarella, fragrant basil and a beautifully crisp crust.",
+        image: "https://images.unsplash.com/photo-1579751626657-72bc17010498?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 3,
+        name: "Wild Mushroom Risotto",
+        category: "italian",
+        price: 349,
+        rating: 4.8,
+        origin: "Italian",
+        tag: "Signature",
+        description: "Slow-stirred arborio rice, roasted mushrooms, herbs and parmesan.",
+        image: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 4,
+        name: "Classic Lasagna",
+        category: "italian",
+        price: 329,
+        rating: 4.7,
+        origin: "Italian",
+        tag: "Comfort Food",
+        description: "Layers of pasta, rich tomato sauce, béchamel and bubbling cheese.",
+        image: "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 5,
+        name: "Pesto Penne",
+        category: "italian",
+        price: 279,
+        rating: 4.7,
+        origin: "Italian",
+        tag: "Fresh & Green",
+        description: "Penne tossed with basil pesto, parmesan, cherry tomatoes and olive oil.",
+        image: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 6,
+        name: "Bruschetta",
+        category: "italian",
+        price: 189,
+        rating: 4.6,
+        origin: "Italian",
+        tag: "Small Plates",
+        description: "Toasted rustic bread topped with tomatoes, basil and extra virgin olive oil.",
+        image: "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?auto=format&fit=crop&w=900&q=85"
+    },
+
+    // FRENCH CUISINE
+
+    {
+        id: 7,
+        name: "French Onion Soup",
+        category: "french",
+        price: 199,
+        rating: 4.8,
+        origin: "French",
+        tag: "Traditional",
+        description: "Sweet caramelised onions in a rich broth with golden toasted bread.",
+        image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 8,
+        name: "Ratatouille",
+        category: "french",
+        price: 279,
+        rating: 4.7,
+        origin: "French",
+        tag: "Garden Fresh",
+        description: "A Provençal medley of tender vegetables, tomato and fragrant herbs.",
+        image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 9,
+        name: "Mushroom Vol-au-Vent",
+        category: "french",
+        price: 299,
+        rating: 4.8,
+        origin: "French",
+        tag: "Elegant",
+        description: "Flaky golden pastry filled with creamy mushrooms and fresh thyme.",
+        image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 10,
+        name: "Croque Monsieur",
+        category: "french",
+        price: 259,
+        rating: 4.7,
+        origin: "French",
+        tag: "Bistro Classic",
+        description: "A golden grilled sandwich with béchamel, melted cheese and herbs.",
+        image: "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=900&q=85"
+    },
+
+    // THAI CUISINE
+
+    {
+        id: 11,
+        name: "Pad Thai Noodles",
+        category: "thai",
+        price: 279,
+        rating: 4.9,
+        origin: "Thai",
+        tag: "Bestseller",
+        description: "Wok-tossed rice noodles, crunchy peanuts, lime and aromatic Thai herbs.",
+        image: "https://images.unsplash.com/photo-1559314809-0d155014e29e?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 12,
+        name: "Thai Green Curry",
+        category: "thai",
+        price: 299,
+        rating: 4.8,
+        origin: "Thai",
+        tag: "Spice & Soul",
+        description: "Fragrant green curry with coconut milk, vegetables and Thai basil.",
+        image: "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 13,
+        name: "Tom Yum Soup",
+        category: "thai",
+        price: 219,
+        rating: 4.8,
+        origin: "Thai",
+        tag: "Hot & Sour",
+        description: "Aromatic lemongrass, lime, mushrooms and a lively chilli finish.",
+        image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 14,
+        name: "Thai Basil Fried Rice",
+        category: "thai",
+        price: 249,
+        rating: 4.7,
+        origin: "Thai",
+        tag: "Wok Favourite",
+        description: "Fragrant jasmine rice stir-fried with vegetables, garlic and basil.",
+        image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 15,
+        name: "Fresh Thai Spring Rolls",
+        category: "thai",
+        price: 179,
+        rating: 4.6,
+        origin: "Thai",
+        tag: "Light Bites",
+        description: "Crisp vegetable rolls with a sweet chilli dipping sauce.",
+        image: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=900&q=85"
+    },
+
+    // DESSERTS
+
+    {
+        id: 16,
+        name: "Tiramisu",
+        category: "dessert",
+        price: 189,
+        rating: 4.9,
+        origin: "Italian Dessert",
+        tag: "Guest Favourite",
+        description: "Espresso-soaked layers, delicate mascarpone cream and cocoa.",
+        image: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 17,
+        name: "Crème Brûlée",
+        category: "dessert",
+        price: 199,
+        rating: 4.9,
+        origin: "French Dessert",
+        tag: "Signature",
+        description: "Silky vanilla custard beneath a delicate caramelised sugar crust.",
+        image: "https://images.unsplash.com/photo-1470324161839-ce2bb6fa6bc3?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 18,
+        name: "Chocolate Fondant",
+        category: "dessert",
+        price: 219,
+        rating: 4.8,
+        origin: "French Dessert",
+        tag: "Chocolate Love",
+        description: "Warm chocolate cake with a soft, molten centre.",
+        image: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 19,
+        name: "Mango Sticky Rice",
+        category: "dessert",
+        price: 179,
+        rating: 4.8,
+        origin: "Thai Dessert",
+        tag: "Tropical",
+        description: "Sweet mango, coconut-infused sticky rice and a gentle sesame finish.",
+        image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 20,
+        name: "Vanilla Panna Cotta",
+        category: "dessert",
+        price: 169,
+        rating: 4.7,
+        origin: "Italian Dessert",
+        tag: "Delicate",
+        description: "A silky vanilla cream dessert finished with a berry coulis.",
+        image: "https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=900&q=85"
+    },
+
+    // DRINKS
+
+    {
+        id: 21,
+        name: "Italian Lemon Soda",
+        category: "drink",
+        price: 119,
+        rating: 4.7,
+        origin: "Italian",
+        tag: "Refreshing",
+        description: "Bright lemon, sparkling water and a refreshing citrus finish.",
+        image: "https://images.unsplash.com/photo-1513558161293-cdaf765edfd4?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 22,
+        name: "Iced Matcha Latte",
+        category: "drink",
+        price: 179,
+        rating: 4.8,
+        origin: "Japanese Inspired",
+        tag: "Modern Classic",
+        description: "Earthy green tea blended with chilled milk over ice.",
+        image: "https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 23,
+        name: "Thai Iced Tea",
+        category: "drink",
+        price: 149,
+        rating: 4.8,
+        origin: "Thai",
+        tag: "Sweet & Creamy",
+        description: "A fragrant tea with creamy milk and a beautiful amber colour.",
+        image: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=900&q=85"
+    },
+
+    {
+        id: 24,
+        name: "Berry Sparkler",
+        category: "drink",
+        price: 159,
+        rating: 4.7,
+        origin: "House Special",
+        tag: "Fruit Forward",
+        description: "A sparkling berry cooler with fresh citrus and mint.",
+        image: "https://images.unsplash.com/photo-1513558161293-cdaf765edfd4?auto=format&fit=crop&w=900&q=85"
+    }
+
+];
+
+
+/*
+==========================================================
+ APPLICATION STATE
+==========================================================
+*/
+
+const TAX_RATE = 0.05;
+const DELIVERY_FEE = 40;
+const FREE_DELIVERY_THRESHOLD = 999;
+
+let activeCategory = "all";
+let activeSearch = "";
+let couponApplied = false;
+let toastTimer = null;
+
+let cart = {};
+
+let discountRate = 0;
+
+try {
+    const savedCart = localStorage.getItem("smartDinePremiumCart");
+
+    if (savedCart) {
+        const parsed = JSON.parse(savedCart);
+
+        if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+            for (const [id, quantity] of Object.entries(parsed)) {
+                const validId = MENU_ITEMS.some(
+                    item => item.id === Number(id)
+                );
+
+                const validQuantity =
+                    Number.isInteger(quantity) &&
+                    quantity > 0 &&
+                    quantity <= 99;
+
+                if (validId && validQuantity) {
+                    cart[id] = quantity;
+                }
+            }
+        }
+    }
+} catch (error) {
+    cart = {};
+}
+
+
+/*
+==========================================================
+ HELPERS
+==========================================================
+*/
+
+function formatMoney(amount) {
+    return new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: "INR",
+        maximumFractionDigits: 2,
+        minimumFractionDigits: 2
+    }).format(amount);
+}
+
+function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, function(char) {
+        const entities = {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        };
+
+        return entities[char];
+    });
+}
+
+function getItem(id) {
+    return MENU_ITEMS.find(item => item.id === Number(id));
+}
+
+function getCartCount() {
+    return Object.values(cart).reduce(
+        (total, quantity) => total + quantity,
+        0
+    );
+}
+
+function getSubtotal() {
+    return Object.entries(cart).reduce(function(total, entry) {
+        const item = getItem(entry[0]);
+
+        if (!item) {
+            return total;
+        }
+
+        return total + item.price * entry[1];
+    }, 0);
+}
+
+function getDiscount() {
+    return couponApplied ? getSubtotal() * discountRate : 0;
+}
+
+function getTaxableAmount() {
+    return Math.max(0, getSubtotal() - getDiscount());
+}
+
+function getGST() {
+    return getTaxableAmount() * TAX_RATE;
+}
+
+function getDelivery() {
+    const subtotal = getSubtotal();
+
+    if (subtotal <= 0 || subtotal >= FREE_DELIVERY_THRESHOLD) {
+        return 0;
+    }
+
+    return DELIVERY_FEE;
+}
+
+function getGrandTotal() {
+    return getTaxableAmount() + getGST() + getDelivery();
+}
+
+function saveCart() {
+    try {
+        localStorage.setItem(
+            "smartDinePremiumCart",
+            JSON.stringify(cart)
+        );
+    } catch (error) {
+        console.warn("Cart could not be saved in this browser.");
+    }
+}
+
+function showToast(message) {
+    const toast = document.getElementById("toast");
+
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    clearTimeout(toastTimer);
+
+    toastTimer = setTimeout(function() {
+        toast.classList.remove("show");
+    }, 2800);
+}
+
+function scrollToSection(id) {
+    const element = document.getElementById(id);
+
+    if (element) {
+        element.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+    }
+
+    closeMobileMenu();
+}
+
+
+/*
+==========================================================
+ MENU RENDERING
+==========================================================
+*/
+
+function renderMenu() {
+    const grid = document.getElementById("foodGrid");
+
+    const filteredItems = MENU_ITEMS.filter(function(item) {
+        const matchesCategory =
+            activeCategory === "all" ||
+            item.category === activeCategory;
+
+        const searchableText = [
+            item.name,
+            item.category,
+            item.origin,
+            item.description,
+            item.tag
+        ].join(" ").toLowerCase();
+
+        const matchesSearch = searchableText.includes(
+            activeSearch.toLowerCase()
+        );
+
+        return matchesCategory && matchesSearch;
+    });
+
+    const headings = {
+        all: "Something wonderful awaits",
+        italian: "A little Italian romance",
+        french: "The art of French dining",
+        thai: "Fresh flavours of Thailand",
+        dessert: "Save room for something sweet",
+        drink: "A refreshing little moment"
+    };
+
+    document.getElementById("menuHeading").textContent =
+        headings[activeCategory] || headings.all;
+
+    document.getElementById("menuCount").textContent =
+        filteredItems.length +
+        (filteredItems.length === 1 ? " creation to discover." : " creations to discover.");
+
+    if (filteredItems.length === 0) {
+        grid.innerHTML = `
+            <div class="no-results">
+                <h3>No dishes found just yet.</h3>
+                <p>Try another search or explore the complete menu.</p>
+                <br>
+                <button class="primary-btn"
+                        type="button"
+                        onclick="resetMenuFilters()">
+                    View everything
+                </button>
+            </div>
+        `;
+
+        return;
+    }
+
+    grid.innerHTML = filteredItems.map(function(item) {
+        const quantityInCart = cart[item.id] || 0;
+
+        return `
+            <article class="food-card">
+
+                <div class="food-image">
+                    <img
+                        src="${escapeHTML(item.image)}"
+                        alt="${escapeHTML(item.name)}"
+                        loading="lazy">
+
+                    <span class="food-tag">
+                        ${escapeHTML(item.tag)}
+                    </span>
+                </div>
+
+                <div class="food-info">
+
+                    <div class="food-top">
+                        <h3 class="food-name">
+                            ${escapeHTML(item.name)}
+                        </h3>
+
+                        <span class="food-rating">
+                            ★ ${Number(item.rating).toFixed(1)}
+                        </span>
+                    </div>
+
+                    <div class="food-origin">
+                        ${escapeHTML(item.origin)}
+                    </div>
+
+                    <p class="food-description">
+                        ${escapeHTML(item.description)}
+                    </p>
+
+                    <div class="food-bottom">
+
+                        <div class="food-price">
+                            ${formatMoney(item.price)}
+                            <small>Per serving</small>
+                        </div>
+
+                        <button
+                            type="button"
+                            class="add-btn"
+                            onclick="addToCart(${item.id})"
+                            ${quantityInCart >= 99 ? "disabled" : ""}>
+
+                            ${quantityInCart > 0
+                                ? "＋ Add more (" + quantityInCart + ")"
+                                : "＋ Add to bag"}
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </article>
+        `;
+    }).join("");
+}
+
+function resetMenuFilters() {
+    activeCategory = "all";
+    activeSearch = "";
+
+    document.getElementById("menuSearch").value = "";
+
+    document.querySelectorAll(".category-btn").forEach(function(button) {
+        button.classList.toggle(
+            "active",
+            button.dataset.category === "all"
+        );
+    });
+
+    renderMenu();
+}
+
+
+/*
+==========================================================
+ CATEGORY FILTERS AND SEARCH
+==========================================================
+*/
+
+document.getElementById("categoryBar").addEventListener(
+    "click",
+    function(event) {
+        const button = event.target.closest(".category-btn");
+
+        if (!button) {
+            return;
+        }
+
+        activeCategory = button.dataset.category;
+
+        document.querySelectorAll(".category-btn").forEach(function(btn) {
+            btn.classList.toggle("active", btn === button);
+        });
+
+        renderMenu();
+    }
+);
+
+document.getElementById("menuSearch").addEventListener(
+    "input",
+    function(event) {
+        activeSearch = event.target.value.trim();
+        renderMenu();
+    }
+);
+
+
+/*
+==========================================================
+ CART ACTIONS
+==========================================================
+*/
+
+function addToCart(id) {
+    const item = getItem(id);
+
+    if (!item) {
+        showToast("Sorry, this dish could not be found.");
+        return;
+    }
+
+    if ((cart[id] || 0) >= 99) {
+        showToast("Maximum quantity reached for this dish.");
+        return;
+    }
+
+    cart[id] = (cart[id] || 0) + 1;
+
+    saveCart();
+    updateCart();
+
+    showToast(item.name + " added to your bag.");
+}
+
+function changeQuantity(id, amount) {
+    const item = getItem(id);
+
+    if (!item) {
+        return;
+    }
+
+    const currentQuantity = cart[id] || 0;
+    const nextQuantity = currentQuantity + amount;
+
+    if (nextQuantity <= 0) {
+        delete cart[id];
+    } else if (nextQuantity <= 99) {
+        cart[id] = nextQuantity;
+    } else {
+        showToast("Maximum quantity is 99 per dish.");
+        return;
+    }
+
+    saveCart();
+    updateCart();
+}
+
+function removeFromCart(id) {
+    const item = getItem(id);
+
+    delete cart[id];
+
+    saveCart();
+    updateCart();
+
+    if (item) {
+        showToast(item.name + " removed from your bag.");
+    }
+}
+
+function updateCart() {
+    const cartItems = document.getElementById("cartItems");
+    const cartEmpty = document.getElementById("cartEmpty");
+
+    const ids = Object.keys(cart).filter(function(id) {
+        return getItem(id) && cart[id] > 0;
+    });
+
+    if (ids.length === 0) {
+        cartItems.innerHTML = "";
+        cartEmpty.style.display = "block";
+    } else {
+        cartEmpty.style.display = "none";
+
+        cartItems.innerHTML = ids.map(function(id) {
+            const item = getItem(id);
+            const quantity = cart[id];
+
+            return `
+                <div class="cart-row">
+
+                    <div class="cart-item-name">
+                        ${escapeHTML(item.name)}
+                        <small>
+                            ${formatMoney(item.price)} each
+                        </small>
+                    </div>
+
+                    <div class="quantity-control">
+
+                        <button
+                            type="button"
+                            class="qty-btn"
+                            aria-label="Decrease ${escapeHTML(item.name)} quantity"
+                            onclick="changeQuantity(${item.id}, -1)">
+                            −
+                        </button>
+
+                        <strong>${quantity}</strong>
+
+                        <button
+                            type="button"
+                            class="qty-btn"
+                            aria-label="Increase ${escapeHTML(item.name)} quantity"
+                            onclick="changeQuantity(${item.id}, 1)">
+                            +
+                        </button>
+
+                    </div>
+
+                    <div class="cart-line-total">
+                        ${formatMoney(item.price * quantity)}
+
+                        <br>
+
+                        <button
+                            type="button"
+                            class="remove-btn"
+                            onclick="removeFromCart(${item.id})">
+                            Remove
+                        </button>
+                    </div>
+
+                </div>
+            `;
+        }).join("");
+    }
+
+    const count = getCartCount();
+
+    document.getElementById("navCartCount").textContent = count;
+
+    document.getElementById("cartItemCount").textContent =
+        count + (count === 1 ? " item" : " items");
+
+    document.getElementById("checkoutItems").textContent = count;
+
+    updateSummary();
+}
+
+
+/*
+==========================================================
+ DISCOUNTS AND BILL CALCULATION
+==========================================================
+*/
+
+function applyCoupon() {
+    const input = document.getElementById("couponInput");
+    const message = document.getElementById("discountMessage");
+
+    const code = input.value.trim().toUpperCase();
+
+    if (getSubtotal() <= 0) {
+        couponApplied = false;
+        discountRate = 0;
+
+        message.textContent = "Add items to your bag before applying a coupon.";
+        message.style.color = "#ad5252";
+
+        updateSummary();
+        return;
+    }
+
+    if (code === "WELCOME10") {
+        couponApplied = true;
+        discountRate = 0.10;
+
+        message.textContent = "Welcome! Your 10% discount has been applied.";
+        message.style.color = "#526f43";
+
+        showToast("WELCOME10 applied successfully.");
+    } else {
+        couponApplied = false;
+        discountRate = 0;
+
+        message.textContent = "Invalid coupon. Try WELCOME10.";
+        message.style.color = "#ad5252";
+    }
+
+    updateSummary();
+}
+
+function updateSummary() {
+    const subtotal = getSubtotal();
+    const discount = getDiscount();
+    const gst = getGST();
+    const delivery = getDelivery();
+    const total = getGrandTotal();
+
+    document.getElementById("subtotal").textContent =
+        formatMoney(subtotal);
+
+    document.getElementById("discountAmount").textContent =
+        "− " + formatMoney(discount);
+
+    document.getElementById("gstAmount").textContent =
+        formatMoney(gst);
+
+    document.getElementById("deliveryAmount").textContent =
+        formatMoney(delivery);
+
+    document.getElementById("grandTotal").textContent =
+        formatMoney(total);
+
+    document.getElementById("checkoutTotal").textContent =
+        formatMoney(total);
+
+    if (couponApplied && subtotal > 0) {
+        document.getElementById("discountMessage").textContent =
+            "WELCOME10 applied — saving " + formatMoney(discount) + ".";
+    } else if (subtotal >= FREE_DELIVERY_THRESHOLD) {
+        document.getElementById("discountMessage").textContent =
+            "You've unlocked free delivery!";
+    } else if (subtotal > 0) {
+        document.getElementById("discountMessage").textContent =
+            "Add " + formatMoney(FREE_DELIVERY_THRESHOLD - subtotal) +
+            " more for free delivery.";
+    } else {
+        document.getElementById("discountMessage").textContent = "";
+    }
+}
+
+
+/*
+==========================================================
+ CHECKOUT
+==========================================================
+*/
+
+function goToCheckout() {
+    if (getCartCount() === 0) {
+        showToast("Your bag is empty. Add a dish before checkout.");
+        scrollToSection("menu");
+        return;
+    }
+
+    scrollToSection("checkout");
+}
+
+document.getElementById("checkoutForm").addEventListener(
+    "submit",
+    async function(event) {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (getCartCount() === 0) {
+            showToast("Your bag is empty. Please add a dish first.");
+            scrollToSection("menu");
+            return;
+        }
+        if (!form.reportValidity()) return;
+
+        const customerName = document.getElementById("customerName").value.trim();
+        const customerEmail = document.getElementById("customerEmail").value.trim();
+        const customerPhone = document.getElementById("customerPhone").value.trim();
+        const customerAddress = document.getElementById("customerAddress").value.trim();
+        if (!customerName || !customerEmail || !customerPhone || !customerAddress) {
+            showToast("Please complete all required details.");
+            return;
+        }
+        const paymentInput = form.querySelector('input[name="paymentMethod"]:checked');
+        const paymentMethod = paymentInput ? paymentInput.value : "UPI";
+        const payload = {
+            customerName, customerEmail, customerPhone, customerAddress,
+            notes: document.getElementById("orderNotes").value.trim(),
+            couponCode: couponApplied ? "WELCOME10" : "",
+            paymentMethod,
+            items: Object.entries(cart).map(([id, quantity]) => ({ id: Number(id), quantity }))
+        };
+        const submitButton = form.querySelector('button[type="submit"]');
+        if (submitButton) { submitButton.disabled = true; submitButton.dataset.originalText = submitButton.textContent; submitButton.textContent = "Submitting order…"; }
+        try {
+            const response = await fetch("/api/orders", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            const resultData = await response.json();
+            if (!response.ok || resultData.status !== "success") {
+                throw new Error(resultData.message || "The server could not accept this order.");
+            }
+            const order = resultData.order;
+            const result = document.getElementById("checkoutResult");
+            result.innerHTML = `
+                <div class="success-box">
+                    <div class="success-icon">✓</div>
+                    <h4>Thank you, ${escapeHTML(customerName)}!</h4>
+                    <p>Your order has been received by the SmartDine Java backend.</p>
+                    <p style="margin-top:10px;"><strong>Order reference:</strong> ${escapeHTML(order.orderId)}</p>
+                    <p><strong>Payment method:</strong> ${escapeHTML(order.paymentMethod)}</p>
+                    <p><strong>Subtotal:</strong> ${formatMoney(order.subtotal)}</p>
+                    <p><strong>Discount:</strong> ${formatMoney(order.discount)}</p>
+                    <p><strong>GST (5%):</strong> ${formatMoney(order.gst)}</p>
+                    <p><strong>Delivery:</strong> ${formatMoney(order.delivery)}</p>
+                    <p><strong>Total:</strong> ${formatMoney(order.total)}</p>
+                    <p style="margin-top:10px;">Order saved in the running Java server. No real payment has been processed.</p>
+                    <button type="button" class="primary-btn" style="margin-top:18px;" onclick="startNewOrder()">Start a new order</button>
+                </div>`;
+            cart = {}; couponApplied = false; discountRate = 0;
+            document.getElementById("couponInput").value = "";
+            saveCart(); updateCart(); renderMenu();
+            showToast("Order sent successfully to the Java backend.");
+            result.scrollIntoView({ behavior: "smooth", block: "center" });
+        } catch (error) {
+            showToast("Could not submit order. Make sure java/Server.java is running.");
+            console.error("Order submission failed:", error);
+            const result = document.getElementById("checkoutResult");
+            result.innerHTML = `<div class="success-box"><h4>Order not submitted</h4><p>${escapeHTML(error.message || "Please start the Java server and try again.")}</p><p>Check that the page is opened at <strong>http://localhost:8080</strong>, not directly as a file.</p></div>`;
+        } finally {
+            if (submitButton) { submitButton.disabled = false; submitButton.textContent = submitButton.dataset.originalText || "Place Order"; }
+        }
+    }
+);
+
+async function loadMenuFromServer() {
+    try {
+        const response = await fetch("/api/menu", { cache: "no-store" });
+        if (!response.ok) throw new Error("Menu API unavailable");
+        const data = await response.json();
+        if (data.status !== "success" || !Array.isArray(data.items) || !data.items.length) throw new Error("Invalid menu response");
+        MENU_ITEMS = data.items;
+        // Keep a saved cart only when its IDs still exist in the backend menu.
+        Object.keys(cart).forEach(id => { if (!MENU_ITEMS.some(item => item.id === Number(id))) delete cart[id]; });
+        saveCart(); renderMenu(); updateCart();
+        document.documentElement.dataset.backend = "connected";
+    } catch (error) {
+        document.documentElement.dataset.backend = "offline";
+        console.warn("SmartDine is using its built-in fallback menu because the Java backend is unavailable.", error);
+        showToast("Java backend not connected. Start Server.java for live menu and orders.");
+    }
+}
+
+function startNewOrder() {
+    document.getElementById("checkoutForm").reset();
+
+    document.getElementById("checkoutResult").innerHTML = "";
+
+    resetMenuFilters();
+
+    scrollToSection("menu");
+}
+
+
+/*
+==========================================================
+ MOBILE NAVIGATION
+==========================================================
+*/
+
+function toggleMobileMenu() {
+    const nav = document.getElementById("navLinks");
+    const button = document.getElementById("mobileMenuBtn");
+
+    const isOpen = nav.classList.toggle("open");
+
+    button.setAttribute("aria-expanded", String(isOpen));
+    button.textContent = isOpen ? "✕" : "☰";
+}
+
+function closeMobileMenu() {
+    const nav = document.getElementById("navLinks");
+    const button = document.getElementById("mobileMenuBtn");
+
+    nav.classList.remove("open");
+
+    button.setAttribute("aria-expanded", "false");
+    button.textContent = "☰";
+}
+
+document.querySelectorAll(".nav-links a").forEach(function(link) {
+    link.addEventListener("click", closeMobileMenu);
+});
+
+
+/*
+==========================================================
+ INITIALISE
+==========================================================
+*/
+
+document.getElementById("currentYear").textContent =
+    new Date().getFullYear();
+
+renderMenu();
+updateCart();
+loadMenuFromServer();
+
+</script>
+
+</body>
+</html>
